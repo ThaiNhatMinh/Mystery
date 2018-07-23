@@ -4,3 +4,11 @@ function GetDate(slash = '/'){
     console.log(result);
     return result;
 }
+
+const {ipcRenderer} = require('electron')
+
+const SaveBtn = document.getElementById('Save');
+SaveBtn.addEventListener('click',function()
+{
+    ipcRenderer.send('update-notify-value',document.getElementById('TextNode').value);
+})
