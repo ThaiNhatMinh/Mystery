@@ -13,9 +13,7 @@ var electronFs = remote.require('fs');
   function createWindow () {
     // Create the browser window.
     win = new BrowserWindow({width: 800, height: 600})
-    global.sharedObject = {
-      someProperty: 'default value'
-    }
+  
     // and load the index.html of the app.
     win.loadFile('index.html')
   
