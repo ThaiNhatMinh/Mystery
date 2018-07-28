@@ -1,19 +1,21 @@
 
 const {app, BrowserWindow} = require('electron')
 const {ipcMain} = require('electron')
-const {remote} = require('electron');
-var electronFs = remote.require('fs');
-
-
+var appss = require('electron').remote; 
+var fs = require('fs'); // Load the File System to ex
+//const {dialog} = require('electron').remote;
+var ini = require('ini');
+const {dialog} = require('electron');
 
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
   let win
-  
+  let config
   function createWindow () {
     // Create the browser window.
     win = new BrowserWindow({width: 800, height: 600})
-  
+    config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
+    
     // and load the index.html of the app.
     win.loadFile('index.html')
   
@@ -50,10 +52,16 @@ var electronFs = remote.require('fs');
   
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
-  ipcMain.on('update-notify-value', (event,agrs)=>{
+  ipcMain.on('SaveData', (event,agrs)=>{
     console.log(agrs);
-    fs.writefile('message.txt', agrs, (err) => {
+    fs.writeFile('message.txt', agrs, (err) => {
       if (err) throw err;
       console.log('file has been save');
     });
+  })
+
+  ipcMain.on('SetPath', (event,agrs)=>{
+    console.log(agrs);
+    config.Path = agrs;
+    fs.writeFileSync('./config.ini', ini.stringify(config));
   })
