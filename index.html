@@ -24,11 +24,12 @@
 </body>
 
 <script type="text/javascript" src="js/myJS.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 <script>
-	require('.\index.js');
+	var common = require('./js/common');
 	var TextNode = document.getElementById('TextNode');
 	//"Nhật ký ngày " +
-	//TextNode.textContent =  GetDate() + '\r\n';
+	TextNode.textContent =  "Nhật ký ngày " + common.GetDate() + '\r\n';
 	//TextNode.textContent = require('electron').remote.getGlobal('sharedObject').someProperty;
 </script>
 </html>

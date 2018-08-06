@@ -6,6 +6,7 @@ var fs = require('fs'); // Load the File System to ex
 //const {dialog} = require('electron').remote;
 var ini = require('ini');
 const {dialog} = require('electron');
+var common = require('./js/common');
 
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
@@ -17,7 +18,7 @@ const {dialog} = require('electron');
     config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
     
     // and load the index.html of the app.
-    win.loadFile('Driver.html')
+    win.loadFile('index.html')
   
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -54,7 +55,7 @@ const {dialog} = require('electron');
   // code. You can also put them in separate files and require them here.
   ipcMain.on('SaveData', (event,agrs)=>{
     console.log(agrs);
-    fs.writeFile('message.txt', agrs, (err) => {
+    fs.writeFile(config.Path +'\\'+ common.GetDate('') + ".txt", agrs, (err) => {
       if (err) throw err;
       console.log('file has been save');
     });
